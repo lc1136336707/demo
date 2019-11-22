@@ -4,8 +4,23 @@ body{
 .main{
     background-color: white;
     margin: 35px 57px 57px;
+    height: 847px;
 }
 .btn-success{
     float: right;
     margin-bottom: 15px;
+}
+.author img{
+    height: 43px;
+    width: 43px;
+}
+.media .media-body span {
+    font-size: 10px;
+    font-weight: normal;
+    color: #999;
+}
+.main nav{
+    position: relative;
+    left: 132px;
+    bottom: -63px;
 }
