@@ -1,10 +1,12 @@
 body{
     background-color: #66afe9;
 }
+a{cursor: pointer;color: #2e6da4;}
+a:hover{text-decoration: none;color: #499ef3;}
+a:focus{outline: none !important;}
 .main{
     background-color: white;
     margin: 35px 57px 57px;
-    height: 847px;
 }
 .btn-success{
     float: right;
@@ -14,13 +16,67 @@ body{
     height: 43px;
     width: 43px;
 }
+.media{
+    margin-top: 23px;
+    margin-left: 23px;
+}
 .media .media-body span {
     font-size: 10px;
     font-weight: normal;
     color: #999;
 }
+.media .media-body h4{
+    display: block;
+}
 .main nav{
-    position: relative;
-    left: 132px;
-    bottom: -63px;
+    float: right;
+}
+.peopleHeadPortrait{
+    width: 100px;
+    height: 100px;
+}
+.mod-head{
+    margin-top: 23px;
+    margin-left: 23px;
+    min-height: 140px;
+    border-bottom: 1px solid #e6e6e6;
+}
+.mod-body{
+    height: 45px;
+    line-height: 45px;
+    padding: 0 20px;
+    font-size: 13px;
+}
+.mod-foot{
+    margin-top: 23px;
+    margin-left: 23px;
+}
+.mod-foot ul li{
+    width: 90px;
+    text-align: center;
+}
+.peopleName h1{
+    font-size: large;
+    left: 25px;
+    margin: 20px 10px;
+}
+.questions-head{
+    margin-top: 23px;
+    margin-left: 23px;
+    height: 80px;
+}
+.questions-body{
+    padding: 0px 23px;
+    font-size: 13px;
+}
+.tab-pane{
+    display: none;
+}
+.initiator img{
+    width: 60px;
+    height: 60px;
+}
+.initiatorName{
+    padding-left: 20px;
+    padding-top: 20px;
 }

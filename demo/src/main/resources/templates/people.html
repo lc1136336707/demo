@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>一个demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="/js/jquery.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/supplement.css">
+
+</head>
+<body>
+<div th:insert="navigation :: nav"></div>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+            <div class="user-detail-box">
+                <div class="mod-head">
+                    <div class="media-left">
+                        <a href="#" class="">
+                            <img class="img-rounded peopleHeadPortrait" th:src="${user.avatarUrl}">
+                        </a>
+                    </div>
+                    <div class="media-body peopleName">
+                        <h1 class="media-heading" th:text="${user.name}"></h1>
+                    </div>
+                </div>
+                <div class="mod-body">
+
+                </div>
+                <div class="mod-foot">
+                    <ul class="nav nav-pills">
+                        <li role="presentation" th:classappend="${active == 'basicInfo'} ? 'active' : '' "><a href="#">基本情况</a></li>
+                        <li role="presentation" th:classappend="${active == 'questions'} ? 'active' : '' "><a th:href="@{'/people/'+${user.id}+'/questions'}">发问</a></li>
+                        <li role="presentation" th:classappend="${active == 'replys'} ? 'active' : '' "><a href="#">回复</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="aw-user-center-tab">
+                <div class="tab-pane" id="overview"></div>
+                <div th:classappend="${pagination == null} ? 'tab-pane' : '' " id="questions">
+                    <div class="aw-mod">
+                        <div class="questions-head">
+                            <h3>发问</h3>
+                        </div>
+                        <div class="questions-body" th:if="${pagination != null}" >
+                            <div class="media" th:each="question : ${pagination.questions}">
+                                <div class="media-left">
+                                    <a href="#" class="author">
+                                        <img class="img-rounded" th:src="${question.user.avatarUrl}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                                    <span th:text="${question.commentCount}"></span>个回复  <span th:text="${question.viewCount}"></span>次浏览 &emsp;&emsp;&emsp;<span th:text="${#dates.format(question.gmtModified,'yyyy年MM月dd日 HH:mm')}"></span></span>
+                                </div>
+                            </div>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <li>
+                                        <a aria-label="Previous"  href="?page=1" th:if="${pagination.showFirstPage}">
+                                            <span aria-hidden="true">&lt;&lt;</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a aria-label="Previous"  th:href="@{'?page='+${pagination.page - 1}}" th:if="${pagination.showPreviousPage}">
+                                            <span aria-hidden="true">&lt;</span>
+                                        </a>
+                                    </li>
+                                    <li th:classappend="${page == pagination.page} ? 'active' : '' " th:each="page : ${pagination.pages}"><a th:href="@{'?page='+${page}}" th:text="${page}"></a></li>
+                                    <li>
+                                        <a aria-label="Next" th:href="@{'?page='+${pagination.page + 1}}" th:if="${pagination.showNextPage}">
+                                            <span aria-hidden="true">&gt;</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a aria-label="Previous" th:href="@{'?page='+${pagination.totalPage}}" th:if="${pagination.showLastPage}">
+                                            <span aria-hidden="true">&gt;&gt;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="aw-profile-publish-list" id="contents_user_actions_questions">
+                                <p style="padding: 15px 0" align="center" th:if="${pagination == null}">没有内容</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="answers"></div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <h3>热门话题</h3>
+        </div>
+    </div>
+</div>
+</body>
+</html>
