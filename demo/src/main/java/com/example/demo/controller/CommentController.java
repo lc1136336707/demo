@@ -25,9 +25,12 @@ public class CommentController {
         User user = (User)request.getSession().getAttribute("user");
         if(user == null){
             return ResultDTO.errorOf(CustomizeErrorCode.USER_NOT_LOGIN);
-        }else{
-            commentDTO.setCommentator(user.getId());
-            return commentService.insert(commentDTO);
         }
+        if(commentDTO == null || commentDTO.getContent() == null || commentDTO.getContent().equals("")){
+            return ResultDTO.errorOf(CustomizeErrorCode.CONTENT_IS_EMPTY);
+        }
+        commentDTO.setCommentator(user.getId());
+        return commentService.insert(commentDTO);
+
     }
 }

@@ -95,8 +95,23 @@ a:focus{outline: none !important;}
     height: 1000px;
 }
 .comment{
-    margin: 20px 0;
+    margin: 10px 0;
 }
-。comment-submit{
+.comment-submit{
     float: right;
+}
+hr{
+    margin-top: 5px ;
+}
+.comment-operation span{
+    float: right;
+}
+.comment-operation a{
+    color: #999999;
+    margin-right: 26px;
+    font-size: 20px;
+}
+.comment-operation a:hover{
+    text-decoration: none;
+    color: #499ef3;
 }

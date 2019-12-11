@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="/css/supplement.css">
 
 </head>
+<script type="application/javascript">
+    window.onload = function () {
+        var storage = window.localStorage;
+        if(storage.content != null){
+            $("#comment-content").val(storage.content);
+            storage.removeItem("content");
+        }
+    }
+</script>
 <body>
 <div th:insert="navigation :: nav"></div>
 <div class="container-fluid main">
@@ -37,29 +46,53 @@
                 <hr>
             </div>
             <div class="question-footer initiator" id="comment">
-                <div class="media" th:if="${session.user != null}">
-                    <div class="media-left" >
-                        <a href="#">
-                            <img class="img-rounded" th:src="${session.user.avatarUrl}">
-                        </a>
+                <h4><span></span>0个回复</h4>
+                <hr>
+                <div class="comment_list">
+                    <div class="media">
+                        <div class="media-left" >
+                            <a href="#">
+                                <img class="img-rounded" src="/imgs/commentDefault.jpg">
+                            </a>
+                        </div>
+                        <div class="media-body initiatorName">
+                            <h5 class="media-heading">这是一个评论</h5>
+                            <p>dfskgjsad;klasdogihadlsfkghadlkfjghkldsfjhglkdjsfhgkldsjfhgkldsfhklghdsfkl</p>
+                            <span class="comment-operation"><a class="glyphicon glyphicon-thumbs-up"></a> <a class="glyphicon glyphicon-comment" id="showCommentBtn" onclick="showComment()"></a>&emsp;&emsp;&emsp;<span th:text="${#dates.format(question.gmtModified,'yyyy-MM-dd')}"></span></span>
+                            <div class="collapse" id="collapseExample">
+                                <textarea class="form-control comment" id="comment-content" rows="3"></textarea>
+                                <input type="hidden" name="questionId" th:value="${question.id}">
+                                <button type="button" class="btn btn-success comment-submit" onclick="commentSub()">回复</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="media-body initiatorName">
-                        <h5 class="media-heading" th:text="${session.user.name}"></h5>
-                    </div>
+                    <hr>
                 </div>
-                <div class="media" th:if="${session.user == null}">
-                    <div class="media-left" >
-                        <a href="#">
-                            <img class="img-rounded" src="/imgs/commentDefault.jpg">
-                        </a>
+                <div class="write_comment">
+                    <div class="media" th:if="${session.user != null}">
+                        <div class="media-left" >
+                            <a href="#">
+                                <img class="img-rounded" th:src="${session.user.avatarUrl}">
+                            </a>
+                        </div>
+                        <div class="media-body initiatorName">
+                            <h5 class="media-heading" th:text="${session.user.name}"></h5>
+                        </div>
                     </div>
-                    <div class="media-body initiatorName">
-                        <h5 class="media-heading">登录后才能进行评论</h5>
+                    <div class="media" th:if="${session.user == null}">
+                        <div class="media-left" >
+                            <a href="#">
+                                <img class="img-rounded" src="/imgs/commentDefault.jpg">
+                            </a>
+                        </div>
+                        <div class="media-body initiatorName">
+                            <h5 class="media-heading">登录后才能进行评论</h5>
+                        </div>
                     </div>
+                    <textarea class="form-control comment" id="comment-content" rows="6"></textarea>
+                    <input type="hidden" name="questionId" th:value="${question.id}">
+                    <button type="button" class="btn btn-success comment-submit" onclick="commentSub()">回复</button>
                 </div>
-                <textarea class="form-control comment" id="comment-content" rows="6"></textarea>
-                <input type="hidden" name="questionId" th:value="${question.id}">
-                <button type="button" class="btn btn-success comment-submit" onclick="commentSub()">回复</button>
             </div>
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">

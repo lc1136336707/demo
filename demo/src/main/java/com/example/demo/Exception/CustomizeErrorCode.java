@@ -7,7 +7,7 @@ public enum CustomizeErrorCode {
     COMMENT_MOT_FOUND(2003,"评论不存在或已删除！"),
     PAGE_NOT_FOUND(2004,"页面不存在或已删除！"),
     COMMENT_TYPE_NOT_FOUND(2005,"回复类型不存在！"),
-
+    CONTENT_IS_EMPTY(2006,"输入内容不能为空！")
     ;
 
     private int code;

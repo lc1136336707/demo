@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="css/supplement.css">
 
 </head>
+<script type="application/javascript">
+    window.onload = function () {
+        var storage = window.localStorage;
+        if(storage.callback != null){
+            location.href=storage.callback;
+            storage.removeItem("callback");
+        }
+    }
+</script>
 <body>
 <div th:insert="navigation :: nav"></div>
 <div class="container-fluid main">
