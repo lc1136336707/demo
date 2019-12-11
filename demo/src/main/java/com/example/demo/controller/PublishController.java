@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.Exception.CustomizeErrorCode;
+import com.example.demo.Exception.CustomizeException;
 import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.Question;
+import com.example.demo.model.QuestionExample;
 import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +30,13 @@ public class PublishController {
         return "publish";
     }
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id") Integer id,Model model){
-        Question question = questionMapper.findById(id);
+    public String edit(@PathVariable(name = "id") Long id,Model model){
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.createCriteria().andIdEqualTo(id);
+        Question question = questionMapper.selectByPrimaryKey(id);
+        if(question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         model.addAttribute("title",question.getTitle());
         model.addAttribute("description",question.getDescription());
         model.addAttribute("tag",question.getTag());
@@ -40,7 +48,7 @@ public class PublishController {
     public String doPublish(@RequestParam("title") String title,
                             @RequestParam("description") String description,
                             @RequestParam("tag") String tag,
-                            @RequestParam("id") Integer id,
+                            @RequestParam("id") Long id,
                             HttpServletRequest request,
                             Model model){
         model.addAttribute("title",title);
@@ -72,9 +80,16 @@ public class PublishController {
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
             question.setCreator(user.getId());
-            questionMapper.create(question);
+            questionMapper.insert(question);
         }else{
-            questionMapper.update(id,title,description,tag);
+            Question question = new Question();
+            question.setTitle(title);
+            question.setDescription(description);
+            question.setTag(tag);
+            question.setGmtModified(System.currentTimeMillis());
+            QuestionExample questionExample = new QuestionExample();
+            questionExample.createCriteria().andIdEqualTo(id);
+            questionMapper.updateByExampleSelective(question,questionExample);
         }
         return "redirect:/";
     }

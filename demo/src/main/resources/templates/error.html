@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>一个demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="/js/jquery.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/supplement.css">
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h1>出错了!!</h1>
+        <p th:text="${message}"></p>
+        <p><a class="btn btn-primary btn-lg" href="/">返回首页</a></p>
+    </div>
+</div>
+</body>
+</html>

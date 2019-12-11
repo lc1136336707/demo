@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 public class PeopleService {
     @Autowired
     private UserMapper userMapper;
-    public User getUserById(Integer userId) {
-        return userMapper.findById(userId);
+    public User getUserById(Long userId) {
+
+        return userMapper.selectByPrimaryKey(userId);
     }
 }

@@ -19,14 +19,14 @@ public class PeopleController {
     @Autowired
     private QuestionService questionService;
     @GetMapping("/people/{userId}")
-    public String people(@PathVariable Integer userId,
+    public String people(@PathVariable Long userId,
                          Model model){
         User user = peopleService.getUserById(userId);
         model.addAttribute("user",user);
         return "people";
     }
     @GetMapping("/people/{userId}/questions")
-    public String peopleQuestions(@PathVariable Integer userId, Model model,
+    public String peopleQuestions(@PathVariable Long userId, Model model,
                                   @RequestParam(name="page",defaultValue = "1") Integer page,
                                   @RequestParam(name="size",defaultValue = "5") Integer size){
         model.addAttribute("active","questions");
