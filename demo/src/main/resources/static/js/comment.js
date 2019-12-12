@@ -1,14 +1,14 @@
-function commentSub() {
-    var questionId = $("[name='questionId']").val();
+function commentSub(type,parentId) {
+    var commParentId = $("[name="+parentId+"]").val();
     var commentContent = $("#comment-content").val();
     $.ajax({
         url:"/comment",
         type:"post",
         contentType:"application/json",
         data:JSON.stringify({
-            parentId : questionId,
+            parentId : commParentId,
             content : commentContent,
-            type : 1
+            type : type
         }),
         dataType:"json",
         success:function(result){
@@ -31,13 +31,15 @@ function commentSub() {
             }
         }});
 }
-function showComment(){
-    var status = $("#collapseExample").attr("class");
+function showComment(id){
+    var idNum = id.split('-')[1];
+    var status = $("#collapseExample-"+idNum).attr("class");
     if(status == "collapse"){
-        $("#showCommentBtn").attr("style","color:#499ef3")
-        $("#collapseExample").attr("class","collapse.in");
+        $("#"+id).attr("style","color:#499ef3")
+        $("#collapseExample-"+idNum).attr("class","collapse.in");
+
     }else{
-        $("#showCommentBtn").attr("style","")
-        $("#collapseExample").attr("class","collapse");
+        $("#"+id).attr("style","")
+        $("#collapseExample-"+idNum).attr("class","collapse");
     }
 }

@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.Exception.CustomizeErrorCode;
-import com.example.demo.dto.CommentDTO;
+import com.example.demo.dto.CommentCreateDTO;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.User;
 import com.example.demo.service.CommentService;
@@ -20,17 +20,17 @@ public class CommentController {
     private CommentService commentService;
     @ResponseBody
     @RequestMapping(value = "/comment",method = RequestMethod.POST)
-    public Object doComment(@RequestBody CommentDTO commentDTO,
+    public Object doComment(@RequestBody CommentCreateDTO commentCreateDTO,
                             HttpServletRequest request){
         User user = (User)request.getSession().getAttribute("user");
         if(user == null){
             return ResultDTO.errorOf(CustomizeErrorCode.USER_NOT_LOGIN);
         }
-        if(commentDTO == null || commentDTO.getContent() == null || commentDTO.getContent().equals("")){
+        if(commentCreateDTO == null || commentCreateDTO.getContent() == null || commentCreateDTO.getContent().equals("")){
             return ResultDTO.errorOf(CustomizeErrorCode.CONTENT_IS_EMPTY);
         }
-        commentDTO.setCommentator(user.getId());
-        return commentService.insert(commentDTO);
+        commentCreateDTO.setCommentator(user.getId());
+        return commentService.insert(commentCreateDTO);
 
     }
 }

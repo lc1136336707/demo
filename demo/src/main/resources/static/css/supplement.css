@@ -88,8 +88,8 @@ a:focus{outline: none !important;}
     height: 52px;
 }
 .initiatorName{
-    padding-left: 20px;
-    padding-top: 20px;
+    padding-left: 10px;
+    padding-top: 16px;
 }
 .jumbotron{
     height: 1000px;
@@ -109,9 +109,15 @@ hr{
 .comment-operation a{
     color: #999999;
     margin-right: 26px;
-    font-size: 20px;
+    font-size: 16px;
+    text-align: center;
 }
 .comment-operation a:hover{
     text-decoration: none;
     color: #499ef3;
+}
+#secondCommentImg{
+    margin-top: 10px;
+    height: 38px;
+    width: 38px;
 }

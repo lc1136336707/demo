@@ -46,23 +46,42 @@
                 <hr>
             </div>
             <div class="question-footer initiator" id="comment">
-                <h4><span></span>0个回复</h4>
+                <h4><span th:value="${question.commentCount}"></span>个回复</h4>
                 <hr>
                 <div class="comment_list">
-                    <div class="media">
+                    <div class="media" th:each="comment : ${comments}"><!-- 第一级回复 -->
                         <div class="media-left" >
                             <a href="#">
-                                <img class="img-rounded" src="/imgs/commentDefault.jpg">
+                                <img class="img-rounded" th:src="${comment.user.avatarUrl}">
                             </a>
                         </div>
                         <div class="media-body initiatorName">
-                            <h5 class="media-heading">这是一个评论</h5>
-                            <p>dfskgjsad;klasdogihadlsfkghadlkfjghkldsfjhglkdjsfhgkldsjfhgkldsfhklghdsfkl</p>
-                            <span class="comment-operation"><a class="glyphicon glyphicon-thumbs-up"></a> <a class="glyphicon glyphicon-comment" id="showCommentBtn" onclick="showComment()"></a>&emsp;&emsp;&emsp;<span th:text="${#dates.format(question.gmtModified,'yyyy-MM-dd')}"></span></span>
-                            <div class="collapse" id="collapseExample">
+                            <h5 class="media-heading"><a th:text="${comment.user.name}"></a></h5>
+                            <p th:text="${comment.content}"></p>
+                            <span class="comment-operation"><a class="glyphicon glyphicon-thumbs-up" th:text="${comment.likeCount}"></a> <a class="glyphicon glyphicon-comment" th:id="'showCommentBtn-'+${comment.id}" onclick="showComment(this.id)" th:text="${comment.commentCount}"></a>&emsp;<span th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span></span>
+                            <div class="collapse" th:id="'collapseExample-'+${comment.id}">
+                                <div class="media" th:each="comment : ${comments}"><!-- 二级回复 -->
+                                    <div class="media-left" >
+                                        <a href="#">
+                                            <img class="img-rounded" id="secondCommentImg" th:src="${comment.user.avatarUrl}">
+                                        </a>
+                                    </div>
+                                    <div class="media-body initiatorName">
+                                        <p>
+                                            <a th:text="${comment.user.name}+':'"></a>
+                                            <span th:text="${comment.content}"></span>
+                                        </p>
+                                        <span class="comment-operation"><span th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span></span>
+                                        <div class="collapse" id="">
+                                            <textarea class="form-control comment" id="secondComment-content" rows="3"></textarea>
+                                            <input type="hidden" name="commentId" th:value="${comment.id}">
+                                            <button type="button" class="btn btn-success comment-submit" onclick="commentSub(2,commentId)">回复</button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <textarea class="form-control comment" id="comment-content" rows="3"></textarea>
                                 <input type="hidden" name="questionId" th:value="${question.id}">
-                                <button type="button" class="btn btn-success comment-submit" onclick="commentSub()">回复</button>
+                                <button type="button" class="btn btn-success comment-submit" onclick="commentSub(1,questionId)">回复</button>
                             </div>
                         </div>
                     </div>
